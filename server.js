@@ -30,6 +30,7 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 })
+app.use("/routes/api/user", user);
 
 // let port = process.env.PORT || 3000;
 
