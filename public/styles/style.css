@@ -1,0 +1,67 @@
+nav{
+    padding: 0 10px 0 10px;
+    
+}
+nav ul a{
+    color: #3e2723;
+}
+nav .right{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+nav .brand-logo{
+    font-family: 'Lobster', cursive;
+    font-size: 42px;
+}
+
+.nav-wrapper form{
+    margin: auto;
+    width: 40%;
+}
+
+.nav-wrapper .input-field{
+    padding-top: 7px;
+}
+
+.nav-wrapper form #search{
+    height: 50px;
+   
+    
+}
+
+
+nav .right img{
+    margin: 17px;
+    height: 30px;
+    width: 30px;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+nav .right .imgProfil a{
+    height: 64px;
+}
+
+.hidden{
+    display: none;
+}
+
+.modal{
+    max-height:100%;
+    overflow:hidden;
+   }
+   
+   input[type="submit"]{
+     width: 100%;
+     margin-top: 50px;
+   }
+   .modal-close{
+     position: absolute;
+     top:10px;
+     right:10px;
+     padding:0;
+     margin:0;
+   }
+
