@@ -8,8 +8,8 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../public/styles/materialize.min.css"  media="screen,projection"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="/public/styles/style.css">
+    <link type="text/css" rel="stylesheet" href="/styles/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     
 </head>
@@ -29,7 +29,8 @@
                     <li><a href="#">Browse</a></li>
                     <li><a href="#">Beer Me</a></li>
                     <li><a href="#">My Beer</a></li>
-                    <li><a href="#login" class="modal-trigger">Login</a></li>
+                    <li><a href="#login" class="modal-trigger">Log In</a></li>
+                    <li><a href="#signup" class="modal-trigger">Sign Up</a></li>
                     <li class="hide"><a href="#">Logout</a></li>
                 </ul>
             </div>
@@ -58,12 +59,35 @@
             </form>
         </div>
     </div>
+    <div id="signup" class="modal ">
+        <h5 class="modal-close">&#10005;</h5>
+        <div class="modal-content center">
+            <h4>Sign Up Form</h4>
+            <br>
+            
+            <form action="/login" method="post">
+                <div class="input-field">
+                    <i class="material-icons prefix">person</i>
+                    <input type="text" id="name" name="username">
+                    <label for="name">Username</label>
+                </div>
+                <br>
+                <div class="input-field">
+                    <i class="material-icons prefix">lock</i>
+                    <input type="password" id="pass" name="password">
+                    <label for="pass">Password</label>
+                </div>
+                <br>
+                <input type="submit" value="Log In" class="btn yellow darken-4 btn-large">
+            </form>
+        </div>
+    </div>
                 
     <script
         src="http://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    <script src="/public/scripts/app.js"></script>
-    <script type="text/javascript" src="../public/scripts/materialize.min.js"></script>
+    <script src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/materialize.min.js"></script>
 </body>
 </html>

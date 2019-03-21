@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-    email: String, 
+const userSchema = new Schema({
+    email: { 
+        type: String, 
+        required: true, 
+        unique: true, 
+        match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/ ,
+        },
     username: String, 
-    password: String,
+    password: { type: String, required: true , select: false},
     savedBeers:{
         id: Number,
     },
@@ -18,4 +23,4 @@ const UserSchema = new Schema({
     }
 })
 
-module.exports = User = mongoose.model("user", UserSchema);
+module.exports = mongoose.model("User", userSchema);
