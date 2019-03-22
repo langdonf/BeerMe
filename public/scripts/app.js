@@ -1,40 +1,43 @@
 $(document).ready(function(){
     $('.modal').modal();
+    checkForLogin()
 })
-localStorage.length > 0 ? console.log(localStorage) : console.log('no local storage');
+//localStorage.length > 0 ? console.log(localStorage) : console.log('no local storage');
 
 let loggedIn ;
 let user ;
 
 
 
+
 $('#logout').on('click', handleLogout);
+$('#signupform').on('submit', submitSignup)
+$('#loginform').on('submit', submitLogin)
 
-$('#signupForm').on('submit', submitSignup)
-
-$('#loginForm').on('submit', submitLogin)
-
-// function checkForLogin(){
-//     if(localStorage.length > 0){
-//       let jwt = localStorage.token
-//       $.ajax({
-//         type: "POST", //GET, POST, PUT
-//         url: '/verify',  
-//         beforeSend: function (xhr) {   
-//             xhr.setRequestHeader("Authorization", 'Bearer '+ localStorage.token);
-//         }
-//       }).done(function (response) {
-//         console.log(response)
-//         user = { email: response.email, _id: response._id }
-//         console.log("you can access variable user: " , user)
-//           $('#message').text(`Welcome, ${ response.email || response.result.email } `)
-//       }).fail(function (err) {
-//           console.log(err);
-//       });
-//   }
-  
+function checkForLogin(){
+    if(localStorage.length > 0){
+        $('#login, #signup').addClass('hide')
+        $('#logout').removeClass('hide')
+        let jwt = localStorage.token
+        $.ajax({
+            type: "POST", //GET, POST, PUT
+            url: '/verify',  
+            beforeSend: function (xhr) {   
+                xhr.setRequestHeader("Authorization", 'Bearer '+ localStorage.token);
+            }
+        }).done(function (response) {
+           // console.log(response)
+            user = { email: response.email, _id: response._id }
+            //console.log("you can access variable user: " , user)
+        }).fail(function (err) {
+                //console.log(err);
+        });
+    }else{
+        $('#login, #signup').removeClass('hide')
+        $('#logout').addClass('hide')
+    }
+}
   function handleLogout(e) {
-    e.preventDefault();
     console.log("LOGGED OUT")
     delete localStorage.token;
     user = null;
@@ -49,12 +52,12 @@ $('#loginForm').on('submit', submitLogin)
       url: "/user/signup",
       data: userData,
       error: function signupError(e1,e2,e3) {
-        console.log(e1);
-        console.log(e2);
-        console.log(e3);
+        //console.log(e1);
+        // console.log(e2);
+        // console.log(e3);
       },
       success: function signupSuccess(json) {
-        console.log(json);
+       // console.log(json);
         user = {email: json.result.email, _id: json.result._id}
         localStorage.token = json.signedJwt;
        
@@ -66,21 +69,21 @@ $('#loginForm').on('submit', submitLogin)
   
   function submitLogin(e){
     e.preventDefault();
-    console.log("LOGIN FORM SUBMITTED")
+    
     let userData = $(this).serialize()
-    console.log("LOGIN: ", userData)
+   // console.log("LOGIN: ", userData)
     $.ajax({
       method: "POST",
       url: "/user/login",
       data: userData,
     }).done(function signupSuccess(json) {
-      console.log("LOG IN SUCCESSFUL")
-      console.log(json);
+     // console.log("LOG IN SUCCESSFUL")
+      //console.log(json);
       localStorage.token = json.token;
-     
-      checkForLogin();
+      window.location.replace("/");
+    checkForLogin();
     }).fail(function signupError(e1,e2,e3) {
-      console.log(e2);
+     // console.log(e2);
     })
   }
 
@@ -116,7 +119,7 @@ function getBeer(data){
         </div>`)
       }
       function updateUserError() {
-        console.log("error");
+       // console.log("error");
       }
 }
 

@@ -20,27 +20,28 @@ app.get('/', (req, res) => {
 })
 
 app.post('/verify', verifyToken, (req, res) => {
+    console.log(verifyToken);
     let verified= jwt.verify(req.token, 'waffles')
     console.log("verified: ", verified)
     res.json(verified)
 })
 
-// SAMPLE PROTECTED ROUTE!
-// protected route - a route only a user with a jwt token in their header can access.
-app.post('/protectedPage', verifyToken, (req, res) => {
-    console.log(req.token)
-    jwt.verify(req.token, 'waffles', (err, authData) => {
-    if(err) {
-        res.sendStatus(403);
-    } else {
-        res.json({
-        message: 'Post created',
-        authData
-        });
-    }
+// // SAMPLE PROTECTED ROUTE!
+// // protected route - a route only a user with a jwt token in their header can access.
+// app.post('/protectedPage', verifyToken, (req, res) => {
+//     console.log(req.token)
+//     jwt.verify(req.token, 'waffles', (err, authData) => {
+//     if(err) {
+//         res.sendStatus(403);
+//     } else {
+//         res.json({
+//         message: 'Post created',
+//         authData
+//         });
+//     }
 
-    });
-});
+//     });
+// });
 
 // FORMAT OF TOKEN
 // Authorization: Bearer <access_token>

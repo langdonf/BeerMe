@@ -18,7 +18,7 @@
     <div class="navbar-fixed">
         <nav class="yellow darken-4">
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo brown-text text-darken-4">BeerMe</a>
+                <a href="/" class="brand-logo brown-text text-darken-4">BeerMe</a>
                 <form action="" method="post">
                     <div class="input-field">
                         <input id="search" type="search" name="search">
@@ -27,23 +27,22 @@
                     </div>
                 </form>
                 <ul id="nav" class="right hide-on-small-and-down">
-                    <li><a href="#">Browse</a></li>
+                    <li><a href="/">Browse</a></li>
                     <li><a href="/beerme.html">Beer Me</a></li>
                     <li><a href="#">My Beer</a></li>
-                    <li><a id="login" href="#loginform" class="modal-trigger">Log In</a></li>
-                    <li><a id="signup" href="#signupform" class="modal-trigger">Sign Up</a></li>
-                    <li><a id="logout" href="#">Logout</a></li>
+                    <li><a id="login" href="#loginModal" class="modal-trigger">Log In</a></li>
+                    <li><a id="signup" href="#signupModal" class="modal-trigger">Sign Up</a></li>
+                    <li><a id="logout" class="hide" href="/">Logout</a></li>
                 </ul>
             </div>
         </nav>
     </div>
-    <div id="loginform" class="modal ">
+    <div id="loginModal" class="modal ">
         <h5 class="modal-close">&#10005;</h5>
         <div class="modal-content center">
             <h4>Login Form</h4>
             <br>
-            
-            <form action="/user/login" method="post">
+            <form id="loginform" >
                 <div class="input-field">
                     <i class="material-icons prefix">person</i>
                     <label for="loginEmail">Email</label>
@@ -60,13 +59,13 @@
             </form>
         </div>
     </div>
-    <div id="signupform" class="modal ">
+    <div id="signupModal" class="modal ">
         <h5 class="modal-close">&#10005;</h5>
         <div class="modal-content center">
             <h4>Sign Up Form</h4>
             <br>
             
-            <form action="/user/signup" method="post">
+            <form id="signupform" >
                 <div class="input-field">
                     <i class="material-icons prefix">person</i>
                     <label for="singupEmail">Email</label>
