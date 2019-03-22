@@ -3,6 +3,5 @@ const mongoose = require('mongoose')
 
 mongoose.connect(keys.mongoURI)
 
-module.exports = {
-    Users: require('./User.js/index.js'),
-}
+
+module.exports.User = require('./user')

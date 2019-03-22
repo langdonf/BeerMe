@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    console.log("test")
     $('.modal').modal();
 })
 localStorage.length > 0 ? console.log(localStorage) : console.log('no local storage');
@@ -7,7 +6,7 @@ localStorage.length > 0 ? console.log(localStorage) : console.log('no local stor
 let loggedIn ;
 let user ;
 
-checkForLogin();
+
 
 $('#logout').on('click', handleLogout);
 
@@ -15,85 +14,110 @@ $('#signupForm').on('submit', submitSignup)
 
 $('#loginForm').on('submit', submitLogin)
 
-
-function checkForLogin(){
-  if(localStorage.length > 0){
-    let jwt = localStorage.token
-    $.ajax({
-      type: "POST", //GET, POST, PUT
-      url: '/verify',  
-      beforeSend: function (xhr) {   
-          xhr.setRequestHeader("Authorization", 'Bearer '+ localStorage.token);
-      }
-    }).done(function (response) {
-      console.log(response)
-      user = { email: response.email, _id: response._id }
-      console.log("you can access variable user: " , user)
-        $('#message').text(`Welcome, ${ response.email || response.result.email } `)
-    }).fail(function (err) {
-        console.log(err);
-    });
-    $('#yesToken').toggleClass('show');
-  } else {
-    $('#noToken').toggleClass('show');
-  }
-}
-
-function handleLogout(e) {
-  e.preventDefault();
-  console.log("LOGGED OUT")
-  delete localStorage.token;
-  $('#yesToken').toggleClass('show');
-  $('#message').text('Goodbye!')
-  user = null;
-  checkForLogin();
-}
-
-
-function submitSignup(e){
-  e.preventDefault();
-  let userData = $(this).serialize()
-  $.ajax({
-    method: "POST",
-    url: "/user/signup",
-    data: userData,
-    error: function signupError(e1,e2,e3) {
-      console.log(e1);
-      console.log(e2);
-      console.log(e3);
-    },
-    success: function signupSuccess(json) {
-      console.log(json);
-      user = {email: json.result.email, _id: json.result._id}
-      localStorage.token = json.signedJwt;
-      $('#signupForm').toggleClass('show');
-      $('#noToken').toggleClass('show');
-      checkForLogin();
-
+// function checkForLogin(){
+//     if(localStorage.length > 0){
+//       let jwt = localStorage.token
+//       $.ajax({
+//         type: "POST", //GET, POST, PUT
+//         url: '/verify',  
+//         beforeSend: function (xhr) {   
+//             xhr.setRequestHeader("Authorization", 'Bearer '+ localStorage.token);
+//         }
+//       }).done(function (response) {
+//         console.log(response)
+//         user = { email: response.email, _id: response._id }
+//         console.log("you can access variable user: " , user)
+//           $('#message').text(`Welcome, ${ response.email || response.result.email } `)
+//       }).fail(function (err) {
+//           console.log(err);
+//       });
+//   }
+  
+  function handleLogout(e) {
+    e.preventDefault();
+    console.log("LOGGED OUT")
+    delete localStorage.token;
+    user = null;
+    
     }
+  
+  function submitSignup(e){
+    e.preventDefault();
+    let userData = $(this).serialize()
+    $.ajax({
+      method: "POST",
+      url: "/user/signup",
+      data: userData,
+      error: function signupError(e1,e2,e3) {
+        console.log(e1);
+        console.log(e2);
+        console.log(e3);
+      },
+      success: function signupSuccess(json) {
+        console.log(json);
+        user = {email: json.result.email, _id: json.result._id}
+        localStorage.token = json.signedJwt;
+       
+  
+      }
+  
+    })
+  }
+  
+  function submitLogin(e){
+    e.preventDefault();
+    console.log("LOGIN FORM SUBMITTED")
+    let userData = $(this).serialize()
+    console.log("LOGIN: ", userData)
+    $.ajax({
+      method: "POST",
+      url: "/user/login",
+      data: userData,
+    }).done(function signupSuccess(json) {
+      console.log("LOG IN SUCCESSFUL")
+      console.log(json);
+      localStorage.token = json.token;
+     
+      checkForLogin();
+    }).fail(function signupError(e1,e2,e3) {
+      console.log(e2);
+    })
+  }
 
-  })
+function getBeer(data){
+    $.ajax({
+        method: "GET",
+        url: `https://api.punkapi.com/v2/beers/random`,
+        contentType: "application/json",
+        data: data,
+        dataType: "json",
+        success: updateUserSuccess,
+        error: updateUserError
+      });
+      function updateUserSuccess(data) {
+        //console.log(data);
+
+        $('#beer').append(`
+        <div class="row">
+            <div class="col s12 m7 l3">
+            <div class="card">
+                <div class="card-image">
+                <img src="${data[0].image_url}" alt="image unavailavle>
+                <span class="card-title">Card Title</span>
+                </div>
+                <div class="card-content">
+                <p>${data[0].description}</p>
+                </div>
+                <div class="card-action">
+                <a href="#">This is a link</a>
+                </div>
+            </div>
+            </div>
+        </div>`)
+      }
+      function updateUserError() {
+        console.log("error");
+      }
 }
 
-function submitLogin(e){
-  e.preventDefault();
-  console.log("LOGIN FORM SUBMITTED")
-  let userData = $(this).serialize()
-  console.log("LOGIN: ", userData)
-  $.ajax({
-    method: "POST",
-    url: "/user/login",
-    data: userData,
-  }).done(function signupSuccess(json) {
-    console.log("LOG IN SUCCESSFUL")
-    console.log(json);
-    localStorage.token = json.token;
-    $('#noToken').toggleClass('show')
-    $('#loginForm').toggleClass('show')
-    checkForLogin();
-  }).fail(function signupError(e1,e2,e3) {
-    console.log(e2);
-  })
-}
-
-
+getBeer()

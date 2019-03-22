@@ -1,9 +1,13 @@
+body{
+    background-color: wheat
+}
 nav{
     padding: 0 10px 0 10px;
-    
 }
 nav ul a{
     color: #3e2723;
+    font-size: 1.1em;
+    font-family: 'Montserrat', sans-serif;
 }
 nav .right{
     position: absolute;
@@ -14,6 +18,7 @@ nav .right{
 nav .brand-logo{
     font-family: 'Lobster', cursive;
     font-size: 42px;
+    padding-left: 20px;
 }
 
 .nav-wrapper form{
@@ -27,10 +32,13 @@ nav .brand-logo{
 
 .nav-wrapper form #search{
     height: 50px;
-   
-    
+    padding-right: 20px;
 }
-
+.card-image img{
+    height:250px !important;
+    width: auto !important;
+    padding: 20px;
+}
 
 nav .right img{
     margin: 17px;
@@ -43,6 +51,7 @@ nav .right img{
 nav .right .imgProfil a{
     height: 64px;
 }
+
 
 .hidden{
     display: none;

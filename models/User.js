@@ -8,7 +8,6 @@ const userSchema = new Schema({
         unique: true, 
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/ ,
         },
-    username: String, 
     password: { type: String, required: true , select: false},
     savedBeers:{
         id: Number,
@@ -22,5 +21,12 @@ const userSchema = new Schema({
         beerId: Number
     }
 })
+userSchema.set('toJSON', {
+    transform: function(doc, ret, opt) {
+        delete ret['password']
+        return ret
+    }
+  })
 
 module.exports = mongoose.model("User", userSchema);
+
