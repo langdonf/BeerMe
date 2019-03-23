@@ -27,14 +27,14 @@ function getMyBeers(){
     });
     function getBeerSuccess(result) {
         myBeers = result.result.savedBeers
-        console.log(myBeers);
+      
         populate(myBeers)
     }
     
 }
 
 function populate(myBeers){
-    console.log(myBeers);
+   
     myBeers.forEach(beerId => {
         $.ajax({
             method: "GET",
@@ -50,7 +50,7 @@ function populate(myBeers){
           });
         function myBeerSuccess(data){
         let beer = data[0]
-        console.log(beer);
+        
         let card = `
             <div class="col s12 l7">
                     <div class="card">

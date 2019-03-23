@@ -1,8 +1,11 @@
 $(document).ready(function(){
     $('.modal').modal();
     checkForLogin()
-    getBeer()
+    
 })
+if(window.location.pathname === '/'){
+    getBeer()
+}
 //localStorage.length > 0 ? console.log(localStorage) : console.log('no local storage');
 
 let loggedIn ;
