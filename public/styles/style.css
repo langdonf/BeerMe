@@ -35,11 +35,21 @@ nav .brand-logo{
     padding-right: 20px;
 }
 .card-image img{
-    height:250px !important;
+    height:280px !important;
     width: auto !important;
     padding: 20px;
+    margin: 0 auto;
 }
-
+.card .card-content{
+    padding: 18px !important;
+}
+.card .card-reveal{
+    padding: 10px 24px;
+}
+.tagline{
+    font-size: .8em;
+    font-style: oblique;
+}
 nav .right img{
     margin: 17px;
     height: 30px;

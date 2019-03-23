@@ -13,12 +13,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'))
 // routes for login and signup
-app.use('/user', userRoutes);
+
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 })
-
+app.get('/myBeer', (req, res) => {
+    res.sendFile(__dirname + '/views/mybeer.html');
+})
+app.use('/user', userRoutes);
 app.post('/verify', verifyToken, (req, res) => {
     console.log(verifyToken);
     let verified= jwt.verify(req.token, 'waffles')

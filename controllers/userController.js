@@ -98,6 +98,7 @@
                     },
                     );
                     console.log("NEW TOKEN: ", token)
+                    console.log("userID: ", users[0]._id)
                     // send success back to user, along with a token.
                     return res.status(200).json(
                     {
@@ -126,5 +127,20 @@
             if(err){return res.status(500).json({err})}
             res.status(200).json({result})
             })
+        },
+        userBeers: (req,res) => {
+            db.User.findById({_id:req.params.userId},(err,result)=>{
+                if(err){return res.status(500).json({err})}
+            res.status(200).json({result})
+            })
+        },
+        addBeer: (req,res) => {
+            db.User.findOneAndUpdate({_id:localStorage.userId},(err,result)=>{
+                if(err){
+                    return res.status(500).json({err})
+                }
+                res.status(200).json({result})
+            })
         }
+
     }
