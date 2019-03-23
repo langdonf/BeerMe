@@ -11,6 +11,9 @@ router.post('/signup', controllers.user.signup);
 
 router.post('/login', controllers.user.login)
 
+router.get('/:userId/savedbeers', controllers.user.savedBeers)
+
+router.put('/:userId/:beerId', controllers.user.addBeer)
 
 
 

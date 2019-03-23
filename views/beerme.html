@@ -26,72 +26,76 @@
                         <i class="material-icons">close</i>
                     </div>
                 </form>
-                <ul id="nav" class="right hide-on-med-and-down">
-                    <li><a href="#">Browse</a></li>
-                    <li><a href="/beerme.html">Beer Me</a></li>
-                    <li><a href="#">My Beer</a></li>
-                    <li><a id="login" href="#loginform" class="modal-trigger">Log In</a></li>
-                    <li><a id="signup" href="#signupform" class="modal-trigger">Sign Up</a></li>
-                    <li class="hide"><a href="#">Logout</a></li>
+                <ul id="nav" class="right hide-on-small-and-down">
+                    <li><a href="/">Browse</a></li>
+                    <li><a href="/beerme">Beer Me</a></li>
+                    <li><a href="/mybeer">My Beer</a></li>
+                    <li><a id="login" href="#loginModal" class="modal-trigger">Log In</a></li>
+                    <li><a id="signup" href="#signupModal" class="modal-trigger">Sign Up</a></li>
+                    <li><a id="logout" class="hide" href="/">Logout</a></li>
                 </ul>
             </div>
         </nav>
     </div>
-    <div id="loginform" class="modal ">
-        <h5 class="modal-close">&#10005;</h5>
-        <div class="modal-content center">
-            <h4>Login Form</h4>
-            <br>
-            
-            <form action="/login" method="post">
-                <div class="input-field">
-                    <i class="material-icons prefix">person</i>
-                    <input type="text" name="email">
-                    <label for="name">Email</label>
-                </div>
+    <div class="container">
+
+  
+        <div id="loginModal" class="modal ">
+            <h5 class="modal-close">&#10005;</h5>
+            <div class="modal-content center">
+                <h4>Login Form</h4>
                 <br>
-                <div class="input-field">
-                    <i class="material-icons prefix">lock</i>
-                    <input type="password"  name="password">
-                    <label for="pass">Password</label>
-                </div>
-                <br>
-                <input type="submit" value="Log In" class="btn yellow darken-4 btn-large">
-            </form>
+                <form id="loginform" >
+                    <div class="input-field">
+                        <i class="material-icons prefix">person</i>
+                        <label for="loginEmail">Email</label>
+                        <input id="loginEmail" type="text" name="email"/>
+                    </div>
+                    <br>
+                    <div class="input-field">
+                        <i class="material-icons prefix">lock</i>
+                        <label for="loginPassword">Passord</label>
+                        <input id="loginPassword" type="password" name="password"/>
+                    </div>
+                    <br>
+                    <input type="submit" value="Log In" class="btn yellow darken-4 btn-large">
+                </form>
+            </div>
         </div>
-    </div>
-    <div id="signupform" class="modal ">
-        <h5 class="modal-close">&#10005;</h5>
-        <div class="modal-content center">
-            <h4>Sign Up Form</h4>
-            <br>
-            
-            <form action="/login" method="post">
-                <div class="input-field">
-                    <i class="material-icons prefix">person</i>
-                    <input type="text" name="email">
-                    <label for="name">Email</label>
-                </div>
+        <div id="signupModal" class="modal ">
+            <h5 class="modal-close">&#10005;</h5>
+            <div class="modal-content center">
+                <h4>Sign Up Form</h4>
                 <br>
-                <div class="input-field">
-                    <i class="material-icons prefix">lock</i>
-                    <input type="password" name="password">
-                    <label for="pass">Password</label>
-                </div>
-                <br>
-                <input type="submit" value="Log In" class="btn yellow darken-4 btn-large">
-            </form>
+                
+                <form id="signupform" >
+                    <div class="input-field">
+                        <i class="material-icons prefix">person</i>
+                        <label for="singupEmail">Email</label>
+                        <input id="singupEmail" type="text" name="email"/>
+                    </div>
+                    <br>
+                    <div class="input-field">
+                        <i class="material-icons prefix">lock</i>
+                        <label for="signupPassword">Passord</label>
+                        <input id="signupPassword" type="password" name="password"/>
+                    </div>
+                    <br>
+                    <input type="submit" value="Sign Up" class="btn yellow darken-4 btn-large">
+                </form>
+            </div>
         </div>
+        <div id="randomBeer">
+                
+            
+        </div> 
     </div>
-    <div id="randomBeer">
-        
-    </div>           
     <script
         src="http://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="/scripts/app.js"></script>
-    <script srs="/scripts/random.js"></script>
+    <script src="/scripts/random.js"></script>
     <script type="text/javascript" src="/scripts/materialize.min.js"></script>
 </body>
 </html>

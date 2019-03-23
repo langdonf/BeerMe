@@ -8,13 +8,29 @@ $(document).ready(function(){
 let loggedIn ;
 let user ;
 
-
-
-
 $('#logout').on('click', handleLogout);
 $('#signupform').on('submit', submitSignup)
 $('#loginform').on('submit', submitLogin)
+$('#beer').on('click','.addBeer', addBeer)
 
+
+function addBeer() {
+    let beerId = this.id
+    let userId= localStorage.userId
+    console.log(beerId);
+    $.ajax({
+        type: "PUT",
+        url: `/user/${userId}/${beerId}`,
+        success: addBeerSuccess,
+        error: addBeerError
+    });
+    function addBeerSuccess() {
+        console.log("added");
+    }
+    function addBeerError() {
+        console.log("error");    
+}
+}
 function checkForLogin(){
     if(localStorage.length > 0){
         $('#login, #signup').addClass('hide')
@@ -41,8 +57,7 @@ function checkForLogin(){
 }
   function handleLogout(e) {
     console.log("LOGGED OUT")
-    delete localStorage.token;
-    localStorage.userId = null
+    localStorage.clear()
     user = null;
     
     }
@@ -63,13 +78,9 @@ function checkForLogin(){
        // console.log(json);
         user = {email: json.result.email, _id: json.result._id}
         localStorage.token = json.signedJwt;
-       
-  
       }
-  
     })
   }
-  
   function submitLogin(e){
     e.preventDefault();
     
@@ -89,6 +100,8 @@ function checkForLogin(){
      // console.log(e2);
     })
   }
+
+
 
 function getBeer(data){
     $.ajax({
@@ -116,11 +129,14 @@ function getBeer(data){
                                 </div>
                                 <div class="col s10">
                                     <div class="card-content">
-                                        <span class="card-title activator grey-text text-darken-4">${beer.name} - <span class="tagline">${beer.tagline}</span><i class="material-icons right">more_vert</i></span>
+                                    
+                                        <span class="card-title activator grey-text text-darken-4"> ${beer.name} - <span class="tagline">${beer.tagline}</span><i class="material-icons right">more_vert</i></span>
                                         <p class="flow-text">${beer.description}</p>
+                                        <a id=${beer.id} class="btn-floating addBeer right btn-small waves-effect waves-light red"><i class="material-icons">add</i></a>
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">${beer.name}<i class="material-icons right">close</i></span>
                                 <div class="row">

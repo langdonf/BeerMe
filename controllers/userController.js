@@ -120,27 +120,31 @@
                 console.log(err);
                 res.status(500).json({err})
             })
-            },
-        delete: (req, res) => {
-            console.log("hitting delete");
-            db.User.deleteOne({_id: req.params.userId}, (err, result) =>{
-            if(err){return res.status(500).json({err})}
-            res.status(200).json({result})
-            })
         },
-        userBeers: (req,res) => {
+
+        savedBeers: (req,res) => {
+            console.log("test");
             db.User.findById({_id:req.params.userId},(err,result)=>{
                 if(err){return res.status(500).json({err})}
-            res.status(200).json({result})
-            })
-        },
-        addBeer: (req,res) => {
-            db.User.findOneAndUpdate({_id:localStorage.userId},(err,result)=>{
-                if(err){
-                    return res.status(500).json({err})
-                }
+                console.log(result);
                 res.status(200).json({result})
             })
+        },
+
+        addBeer: (req,res) => {
+            db.User.findOneAndUpdate({_id: req.params.userId},
+            {$addToSet: {savedBeers: req.params.beerId}},
+            {safe: true, upsert: true},
+            function(err, data) {
+                if(err){
+                    console.log(err);
+                } else {
+                    res.json({
+                        data
+                    })
+                }
+            })
         }
+        
 
     }
