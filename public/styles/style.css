@@ -87,8 +87,16 @@ nav .right .imgProfil a{
   .rating-stars ul > li.star.selected > i.fa {
     color:#FF912C;
   }
-  
-
+.rating-stars{
+  position: absolute;
+  top: 7px;
+  right: 50px;
+}
+.addBeerBtn{
+  position: absolute;
+  top: 16px;
+  right: 50px;
+}
 .hidden{
     display: none;
 }

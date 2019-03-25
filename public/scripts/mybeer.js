@@ -13,6 +13,7 @@ function isLoggedIn() {
 }
 
 let myBeers = [];
+let userId = localStorage.userId
 
 function getMyBeers() {
     let userId = localStorage.userId;
@@ -110,11 +111,11 @@ function addRating(beerId, ratingValue){
     }
     function addRatingError() {
         console.log("error");    
-}
+    }
 }
 
 
-function populate(myBeers) {
+function populate(myBeers, userId) {
     console.log(myBeers);
     myBeers.forEach(beer => {
         $.ajax({
@@ -134,6 +135,7 @@ function populate(myBeers) {
             let beer = data[0]
 
             let card = `
+            
             <div class="col s12 l7">
                     <div class="card">
                         <div class="row">
@@ -146,21 +148,24 @@ function populate(myBeers) {
                                 <div class="card-content">
                                     <span class="card-title activator grey-text text-darken-4"> ${beer.name} - <span class="tagline">${beer.tagline}</span><i class="material-icons right">more_vert</i></span>
                                     <p class="flow-text">${beer.description}</p>
+                                    <div class="comment left">
+                                    <a data-target="commentModal" class="waves-effect modal-trigger waves-teal btn-flat">Comments</a>
+                                    </div>
                                     <div class='rating-stars center'>
-                                        <ul data-id='${beer.id}' id='stars'>
-                                            <li class='star' title='Bad' data-value='1'>
+                                        <ul data-id=${beer.id} id='stars'>
+                                            <li class='star' title='Bad' data-value=1>
                                                 <i class='fa fa-star fa-fw'></i>
                                             </li>
-                                            <li class='star' title='Ok' data-value='2'>
+                                            <li class='star' title='Ok' data-value=2>
                                                 <i class='fa fa-star fa-fw'></i>
                                             </li>
-                                            <li class='star' title='Good' data-value='3'>
+                                            <li class='star' title='Good' data-value=3>
                                                 <i class='fa fa-star fa-fw'></i>
                                             </li>
-                                            <li class='star' title='Great' data-value='4'>
+                                            <li class='star' title='Great' data-value=4>
                                                 <i class='fa fa-star fa-fw'></i>
                                             </li>
-                                            <li class='star' title='Fantastic' data-value='5'>
+                                            <li class='star' title='Fantastic' data-value=5>
                                                 <i class='fa fa-star fa-fw'></i>
                                             </li>
                                         </ul>
@@ -177,8 +182,13 @@ function populate(myBeers) {
                                     </div>
                                 </div>
                                 <div class="col s3">
+                                    <div class="row">
                                     <h5>Brewers Tips</h5>
                                     <p>${beer.brewers_tips}</p>
+                                    </div>
+                                    <div class="row">
+                                    <h5>My Comments</h5>
+                                    
                                 </div>
                                 <div class="col s3">
                                     <h5>Food Pairings</h5>

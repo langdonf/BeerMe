@@ -1,7 +1,8 @@
     const 
     bcrypt = require('bcrypt'),
     db = require('../models'),
-    jwt = require('jsonwebtoken')
+    jwt = require('jsonwebtoken'),
+    mongoose = require('mongoose')
 
     module.exports = {
         signup : (req, res) => {
@@ -127,15 +128,11 @@
             })
         },
         addRating:(req,res)=>{
-            db.User.update(
-                { 
-                    _id : req.params.userId, 
-                    "savedBeers.id" : req.params.beerId, 
-                    },
-                { 
-                    $set : { "savedBeers.$.rating" : req.params.ratingValue } 
-                },
-                {new:true},
+            console.log(req.params);
+            let userId = mongoose.Types.ObjectId(req.params.userId) 
+            db.User.updateOne(
+                {_id: userId, "savedBeers.id": req.params.beerId },
+                { $set: { "savedBeers.$.rating" : req.params.ratingValue } },
             function(err, data) {
                 if(err){
                     console.log(err);

@@ -16,6 +16,20 @@ $('#signupform').on('submit', submitSignup)
 $('#loginform').on('submit', submitLogin)
 $('#beer').on('click','.addBeer', addBeer)
 
+$("#search").on("keyup", function() {
+    console.log($(this).val());
+    var value = $(this)
+      .val()
+      .toLowerCase();
+    $("#beer .card").filter(function() {
+      $(this).toggle(
+        $(this)
+          .text()
+          .toLowerCase()
+          .indexOf(value) > -1
+      );
+    });
+  });
 
 function addBeer() {
     let beerId = this.id
@@ -112,7 +126,7 @@ function checkForLogin(){
 function getBeer(data){
     $.ajax({
         method: "GET",
-        url: `https://api.punkapi.com/v2/beers?page1&per_page=25`,
+        url: `https://api.punkapi.com/v2/beers?page1&per_page=20`,
         contentType: "application/json",
         data: data,
         dataType: "json",
@@ -136,11 +150,13 @@ function getBeer(data){
                                 <div class="col s10">
                                     <div class="card-content">
                                     
-                                        <span class="card-title activator grey-text text-darken-4"> ${beer.name} - <span class="tagline">${beer.tagline}</span><i class="material-icons right">more_vert</i></span>
+                                        <span class="card-title activator grey-text text-darken-4"> ${beer.name} - <span class="tagline">${beer.tagline} </span><i class="material-icons right">more_vert</i></span> 
                                         <p class="flow-text">${beer.description}</p>
-                                        <a id=${beer.id} class="btn-floating addBeer right btn-small waves-effect waves-light red"><i class="material-icons">add</i></a>
+                                        <a id=${beer.id} class="addBeerBtn btn-floating addBeer right btn-small waves-effect waves-light red"><i class="material-icons ">add</i></a>
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
                             
                             <div class="card-reveal">
