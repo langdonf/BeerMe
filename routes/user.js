@@ -15,7 +15,7 @@ router.get('/:userId/savedbeers', controllers.user.savedBeers)
 
 router.put('/:userId/:beerId', controllers.user.addBeer)
 
-
+router.put('/:userId/:beerId/:ratingValue', controllers.user.addRating)
 
 
 module.exports = router;

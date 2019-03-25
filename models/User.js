@@ -11,14 +11,8 @@ const userSchema = new Schema({
     password: { type: String, required: true , select: false},
     savedBeers:{
         id: Number,
-    },
-    comments:{
-        text: String,
-        beerId: Number
-    },
-    rating:{
-        value: Number,
-        beerId: Number
+        comment: String,
+        rating: Number
     }
 })
 userSchema.set('toJSON', {

@@ -40,18 +40,20 @@ function checkForLogin(){
         $('#logout').removeClass('hide')
         let jwt = localStorage.token
         $.ajax({
-            type: "POST", //GET, POST, PUT
+            type: "POST",
             url: '/verify',  
             beforeSend: function (xhr) {   
-                xhr.setRequestHeader("Authorization", 'Bearer '+ localStorage.token);
+                xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
             }
         }).done(function (response) {
-           // console.log(response)
+            if(response.result != null){
+                response = response.result
+            }
             localStorage.userId = response._id
             user = { email: response.email, _id: response._id }
             //console.log("you can access variable user: " , user)
         }).fail(function (err) {
-                //console.log(err);
+            console.log(err);
         });
     }else{
         $('#login, #signup').removeClass('hide')
@@ -73,14 +75,15 @@ function checkForLogin(){
       url: "/user/signup",
       data: userData,
       error: function signupError(e1,e2,e3) {
-        //console.log(e1);
-        // console.log(e2);
-        // console.log(e3);
+        console.log(e1);
+        console.log(e2);
+         console.log(e3);
       },
       success: function signupSuccess(json) {
-       // console.log(json);
+       console.log(json);
         user = {email: json.result.email, _id: json.result._id}
         localStorage.token = json.signedJwt;
+        window.location.replace("/");
       }
     })
   }

@@ -5,7 +5,6 @@
 
     module.exports = {
         signup : (req, res) => {
-            console.log(req.body);
             // Check to see if email is already in db
             db.User.find({email: req.body.email})
             .exec()
@@ -26,14 +25,13 @@
                     // we now have a successful hashed password
                     } else {
                     // we are creating a User object with their email address and OUR hashed password
-                    db.User.create({
-                        email: req.body.email,
-                        password: hash
-                    }, {password: 0}, (err, result) => {
-                        
-                        // if(err){ return res.status(500).json({err})}
+                    db.User.create({email: req.body.email, password: hash}, function (err, result) {
+                        if (err) 
+                         console.log(err);
+                        else
                         // we send our new data back to user or whatever you want to do.
-                    result = result[0]
+                        console.log("####",result);
+                        
                     jwt.sign(
                         {result},
                         "waffles",
@@ -123,17 +121,36 @@
         },
 
         savedBeers: (req,res) => {
-            console.log("test");
             db.User.findById({_id:req.params.userId},(err,result)=>{
                 if(err){return res.status(500).json({err})}
-                console.log(result);
                 res.status(200).json({result})
             })
         },
+        addRating:(req,res)=>{
+            db.User.update(
+                { 
+                    _id : req.params.userId, 
+                    "savedBeers.id" : req.params.beerId, 
+                    },
+                { 
+                    $set : { "savedBeers.$.rating" : req.params.ratingValue } 
+                },
+                {new:true},
+            function(err, data) {
+                if(err){
+                    console.log(err);
+                } else {
+                    console.log("data",data);
+                    res.json({
+                        data
+                    })
+                }
+            } 
+        )},
 
         addBeer: (req,res) => {
             db.User.findOneAndUpdate({_id: req.params.userId},
-            {$addToSet: {savedBeers: req.params.beerId}},
+            {$addToSet: {savedBeers: {id: req.params.beerId, comment:null ,rating: 0}}},
             {safe: true, upsert: true},
             function(err, data) {
                 if(err){
